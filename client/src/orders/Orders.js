@@ -1,9 +1,11 @@
 import { React } from "react";
+import Footer from "../commons/footer";
+import Header from "../commons/header";
 
 function Orders(props){
 
     return (
-        <h1>Orders</h1>
+        <><Header /><h1>Orders</h1><Footer /></>
     );
 }
 

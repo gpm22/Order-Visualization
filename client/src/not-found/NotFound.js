@@ -1,9 +1,11 @@
 import { React } from "react";
+import Header from "../commons/header";
+import Footer from "../commons/footer";
 
 function NotFound(props){
 
     return (
-        <h1>404 - Not Found</h1>
+        <><Header /><h1>404 - Not Found</h1><Footer /></>
     );
 }
 
