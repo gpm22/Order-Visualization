@@ -1,6 +1,6 @@
 import { React } from "react";
-import Footer from "../commons/footer";
-import Header from "../commons/header";
+import Footer from "../commons/Footer";
+import Header from "../commons/Header";
 
 function Orders(props){
 

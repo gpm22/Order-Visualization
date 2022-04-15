@@ -1,10 +1,11 @@
 import {React} from "react";
 import { NavLink } from "react-router-dom";
+import "./Header.css"
 
 const Header = (props) => {
 
     const navbar = (
-        <nav>
+        <nav id="header-nav">
             <NavLink to="/orders">
                 Orders
             </NavLink>
@@ -16,7 +17,6 @@ const Header = (props) => {
 
     return (
         <header>
-            <h1>Header</h1>
             {navbar}
         </header>
     );
