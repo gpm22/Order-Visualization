@@ -1,20 +1,25 @@
 footer {
-    width: 100%;
-    text-align: right;
-    position: fixed;
-    bottom: 0;
-    border-top: 2px solid lime;
-    background-color: #222;
+  width: 100%;
+  height: 10%;
+  text-align: right;
+  position: fixed;
+  bottom: 0;
+  border-top: 2px solid lime;
+  background-color: #222;
 }
 
 footer p {
-    margin-right: 5%;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  margin-top: 4%;
+  height: 50%;
 }
 
 footer a {
-    color: lime;
+  color: lime;
 }
 
 footer a:hover {
-    color: limegreen;
+  color: limegreen;
 }
