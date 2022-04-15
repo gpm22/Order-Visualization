@@ -2,7 +2,7 @@ import { React } from "react";
 import Footer from "../commons/Footer";
 import Header from "../commons/Header";
 
-function Orders(props) {
+function OrdersPage(props) {
   return (
     <>
       <Header />
@@ -14,4 +14,4 @@ function Orders(props) {
   );
 }
 
-export default Orders;
+export default OrdersPage;
