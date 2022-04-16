@@ -1,15 +1,14 @@
 import React from "react";
 import "./Orders.css";
-import ordersObjects from "../utils/http-requester";
 
 const Orders = (props) => {
   const calculateTotal = (seller) =>
-    ordersObjects["orders"]
+    props["orders"]
       .filter((value) => value.seller === seller)
       .map((value) => value.price)
       .reduce((sum, actual) => sum + actual, 0);
 
-  const sellerInfo = ordersObjects["sellers"].map((seller) => {
+  const sellerInfo = props["sellers"].map((seller) => {
     let total = calculateTotal(seller.id);
     return total > 0
       ? {

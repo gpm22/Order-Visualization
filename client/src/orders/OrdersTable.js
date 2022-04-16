@@ -1,10 +1,9 @@
 import React from "react";
 import "./OrdersTable.css";
-import ordersObjects from "../utils/http-requester";
 
 const OrdersTable = (props) => {
   const getSeller = (sellerId) =>
-    ordersObjects.sellers.filter((seller) => seller.id === sellerId)[0].name;
+    props.sellers.filter((seller) => seller.id === sellerId)[0].name;
 
   let counter = 0;
   const row = (order) => {
@@ -24,7 +23,7 @@ const OrdersTable = (props) => {
     );
   };
 
-  let rows = ordersObjects["orders"].map(row);
+  let rows = props["orders"].map(row);
 
   return (
     <table id="orders-table">
