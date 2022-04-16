@@ -1,0 +1,30 @@
+:root {
+    --block-width: 180px;
+}
+
+#sellers-total {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--block-width), max-content));
+  width: 100%;
+  justify-content: center;
+  grid-gap: 10px;
+}
+
+.sellers-total-block {
+  border: 1px solid lime;
+  width: var(--block-width);
+  height: 50px;
+  padding: 10px;
+}
+
+.sellers-total-first-line {
+  text-align: left;
+  font-size: 1.25em;
+  margin: 0;
+}
+
+.sellers-total-second-line {
+  margin: 0;
+  text-align: right;
+  font-size: 1.7em;
+}
