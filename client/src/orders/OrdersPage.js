@@ -2,6 +2,7 @@ import { React } from "react";
 import Footer from "../commons/Footer";
 import Header from "../commons/Header";
 import Orders from "./Orders";
+import OrdersTable from "./OrdersTable";
 
 function OrdersPage(props) {
   return (
@@ -11,6 +12,7 @@ function OrdersPage(props) {
         <h1>Orders</h1>
         <br />
         <Orders />
+        <OrdersTable />
       </main>
       <Footer />
     </>
