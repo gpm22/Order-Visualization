@@ -1,15 +1,15 @@
 import React from "react";
 import "./Orders.css";
-import testValues from "../commons/teste";
+import ordersObjects from "../utils/http-requester";
 
 const Orders = (props) => {
   const calculateTotal = (seller) =>
-    testValues["orders"]
+    ordersObjects["orders"]
       .filter((value) => value.seller === seller)
       .map((value) => value.price)
       .reduce((sum, actual) => sum + actual, 0);
 
-  const sellerInfo = testValues["sellers"].map((seller) => {
+  const sellerInfo = ordersObjects["sellers"].map((seller) => {
     let total = calculateTotal(seller.id);
     return total > 0
       ? {
