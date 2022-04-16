@@ -6,17 +6,25 @@ const OrdersTable = (props) => {
   const getSeller = (sellerId) =>
     ordersObjects.sellers.filter((seller) => seller.id === sellerId)[0].name;
 
-  const row = (order) => (
-    <tr key={order.orderId}>
-      <td>{order.orderId}</td>
-      <td>{order.product}</td>
-      <td>{order.price}</td>
-      <td>{getSeller(order.seller)}</td>
-      <td>{order.country}</td>
-    </tr>
-  );
+  let counter = 0;
+  const row = (order) => {
+    return (
+      <tr
+        key={order.orderId}
+        className={
+          counter++ % 2 === 0 ? "table-orders-row-even" : null
+        }
+      >
+        <td>{order.orderId}</td>
+        <td>{order.product}</td>
+        <td>{order.price}</td>
+        <td>{getSeller(order.seller)}</td>
+        <td>{order.country}</td>
+      </tr>
+    );
+  };
 
-  let rows = ordersObjects["orders"].map((order) => row(order));
+  let rows = ordersObjects["orders"].map(row);
 
   return (
     <table id="orders-table">

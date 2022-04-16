@@ -1,0 +1,26 @@
+#orders-table {
+  margin-top: 3%;
+  width: 100%;
+  border: 2px solid limegreen;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#orders-table tr {
+  background-color: #000;
+}
+
+#orders-table th {
+  border-bottom: 2px solid limegreen;
+  font-size: 1.2em;
+}
+
+#orders-table :is(td,th) {
+  border-right: 2px solid limegreen;
+  border-left: 2px solid limegreen;
+  height: 40px;
+}
+
+#orders-table .table-orders-row-even {
+    background-color: #113300;
+}

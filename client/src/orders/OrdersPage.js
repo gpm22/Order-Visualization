@@ -10,7 +10,6 @@ function OrdersPage(props) {
       <Header />
       <main>
         <h1>Orders</h1>
-        <br />
         <Orders />
         <OrdersTable />
       </main>
