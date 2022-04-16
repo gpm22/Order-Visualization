@@ -11,7 +11,8 @@
 }
 
 .sellers-total-block {
-  border: 1px solid lime;
+  border: 2px solid limegreen;
+  background-color: #111;
   width: var(--block-width);
   height: 50px;
   padding: 10px;

@@ -21,7 +21,7 @@ const Orders = (props) => {
 
   const sellerTotal = (seller) => {
     return (
-      <div className="sellers-total-block">
+      <div className="sellers-total-block" key={seller.name}>
         <p className="sellers-total-first-line">Total of {seller.name}</p>
         <p className="sellers-total-second-line">${seller.total}</p>
       </div>
