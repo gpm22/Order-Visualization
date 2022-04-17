@@ -18,7 +18,7 @@ const OrdersTable = (props) => {
       >
         <td>{order.orderId}</td>
         <td>{order.product}</td>
-        <td>{order.price}</td>
+        <td>{"$"+order.price.toFixed(2)}</td>
         <td>{getSeller(order.seller)}</td>
         <td>{order.country}</td>
       </tr>

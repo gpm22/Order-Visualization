@@ -14,7 +14,7 @@ const Orders = (props) => {
       .reduce((sum, actual) => sum + actual, 0);
 
   const sellerInfo = props["sellers"].map((seller) => {
-    let total = calculateTotal(seller.id);
+    let total = calculateTotal(seller.id).toFixed(2);
     return total > 0
       ? {
           name: seller.name,
