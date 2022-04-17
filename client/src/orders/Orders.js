@@ -2,6 +2,11 @@ import React from "react";
 import "./Orders.css";
 
 const Orders = (props) => {
+
+  if(!props.orders || !props.sellers){
+    return <section id="sellers-total">Carregando ...</section>
+  }
+
   const calculateTotal = (seller) =>
     props["orders"]
       .filter((value) => value.seller === seller)

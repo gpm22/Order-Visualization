@@ -2,6 +2,10 @@ import React from "react";
 import "./OrdersTable.css";
 
 const OrdersTable = (props) => {
+  if (!props.orders || !props.sellers) {
+    return <section id="sellers-total">Carregando ...</section>;
+  }
+
   const getSeller = (sellerId) =>
     props.sellers.filter((seller) => seller.id === sellerId)[0].name;
 
@@ -10,9 +14,7 @@ const OrdersTable = (props) => {
     return (
       <tr
         key={order.orderId}
-        className={
-          counter++ % 2 === 0 ? "table-orders-row-even" : null
-        }
+        className={counter++ % 2 === 0 ? "table-orders-row-even" : null}
       >
         <td>{order.orderId}</td>
         <td>{order.product}</td>
