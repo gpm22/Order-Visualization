@@ -4,6 +4,22 @@ import "./OrdersTable.css";
 const triangleUp = String.fromCharCode(9650);
 const triangleDown = String.fromCharCode(9660);
 
+const compareStrings = (firstString, secondString, isAscending) => {
+  if (firstString > secondString) {
+    return isAscending ? -1 : 1;
+  }
+  if (firstString < secondString) {
+    return isAscending ? 1 : -1;
+  }
+  return 0;
+};
+
+const compareNumbers = (firstNumber, secondNumber, isAscending) => {
+  let difference = firstNumber - secondNumber;
+
+  return isAscending ? -difference : difference;
+};
+
 const OrdersTable = (props) => {
   const [rows, setRows] = useState(null);
   const [orderFlags, setOrderFlags] = useState({
@@ -26,9 +42,6 @@ const OrdersTable = (props) => {
     return <section id="sellers-total">Carregando ...</section>;
   }
 
-  const getSeller = (sellerId) =>
-    props.sellers.filter((seller) => seller.id === sellerId)[0].name;
-
   const row = (order, index) => {
     return (
       <tr
@@ -38,13 +51,11 @@ const OrdersTable = (props) => {
         <td>{order.orderId}</td>
         <td>{order.product}</td>
         <td>{"$" + order.price.toFixed(2)}</td>
-        <td>{getSeller(order.seller)}</td>
+        <td>{order.seller}</td>
         <td>{order.country}</td>
       </tr>
     );
   };
-
-  let initialRows = props["orders"].map(row);
 
   const changeOrderFlags = (collumId) => {
     let newOrderFlags = {
@@ -74,34 +85,9 @@ const OrdersTable = (props) => {
     });
   };
 
-  const compareStrings = (firstString, secondString, isAscending) => {
-    if (firstString > secondString) {
-      return isAscending ? -1 : 1;
-    }
-    if (firstString < secondString) {
-      return isAscending ? 1 : -1;
-    }
-    // a must be equal to b
-    return 0;
-  };
-
-  const compareNumbers = (firstNumber, secondNumber, isAscending) => {
-    let difference = firstNumber - secondNumber;
-
-    return isAscending ? -difference : difference;
-  };
-
   const sortRows = (collumId) => {
     let collum = collumId.split("-")[1];
     const compareRows = (firstRow, secondRow) => {
-      if (collumId === "span-seller") {
-        return compareStrings(
-          getSeller(firstRow[collum]),
-          getSeller(secondRow[collum]),
-          orderFlags[collumId]
-        );
-      }
-
       if (typeof firstRow[collum] === "string") {
         return compareStrings(
           firstRow[collum],
@@ -129,6 +115,8 @@ const OrdersTable = (props) => {
     sortRows(event.target.id);
     console.log("ordenando para a coluna: " + event.target.id);
   };
+
+  let initialRows = props["orders"].map(row);
 
   return (
     <table id="orders-table">
