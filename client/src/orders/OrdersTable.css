@@ -28,3 +28,7 @@
 .collum-selected {
   color: limegreen;
 }
+
+#orders-table thead tr th span {
+  cursor: pointer;
+}
