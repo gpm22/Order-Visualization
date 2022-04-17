@@ -24,3 +24,7 @@
 #orders-table .table-orders-row-even {
     background-color: #113300;
 }
+
+.collum-selected {
+  color: limegreen;
+}
