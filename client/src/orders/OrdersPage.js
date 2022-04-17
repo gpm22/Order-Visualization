@@ -8,10 +8,11 @@ import getObjects from "../utils/http-requester";
 function OrdersPage(props) {
   let [objects, setObjects] = useState({ orders: false, sellers: false });
 
+  async function fetchData() {
+    await getObjects(setObjects);
+  };
+
   useEffect(() => {
-    async function fetchData() {
-      await getObjects(setObjects);
-    };
     fetchData();
   }, []);
 
