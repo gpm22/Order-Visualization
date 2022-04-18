@@ -3,7 +3,7 @@
 }
 
 #sellers-total {
-  margin-top: 2%;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--block-width), max-content));
   width: 100%;
