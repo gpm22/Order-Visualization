@@ -34,22 +34,17 @@
 }
 
 .orders-table-footer {
-  background-color: #f1f1f1;
   padding: 8px 0px;
   width: 100%;
-  font-weight: 500;
-  text-align: left;
-  font-size: 16px;
-  color: #2c3e50;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .orders-table-footer-button {
   border: none;
+  font-weight: bold;
+  font-size: 1.2em;
   padding: 7px 14px;
   border-radius: 10px;
   cursor: pointer;
@@ -58,11 +53,11 @@
 }
 
 .orders-table-footer-active-button {
-  color: white;
-  background: #185adb;
+  color: #000;
+  background: lime;
 }
 
 .orders-table-footer-inactive-button {
-  color: #2c3e50;
-  background: #f9f9f9;
+  color: #ddd;
+  background: #000;
 }
