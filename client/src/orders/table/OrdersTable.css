@@ -15,7 +15,7 @@
   font-size: 1.2em;
 }
 
-#orders-table :is(td,th) {
+#orders-table :is(td, th) {
   border-right: 2px solid limegreen;
   border-left: 2px solid limegreen;
   height: 32px;
@@ -23,7 +23,7 @@
 }
 
 #orders-table .table-orders-row-even {
-    background-color: #113300;
+  background-color: #113300;
 }
 
 .collum-selected {
@@ -35,6 +35,7 @@
 }
 
 .orders-table-footer {
+  margin-top: 3px;
   padding: 8px 0px;
   width: 100%;
   display: flex;
@@ -43,6 +44,9 @@
 }
 
 .orders-table-footer-button {
+  box-sizing: border-box;
+  height: 40px;
+  width: 40px;
   border: none;
   font-weight: bold;
   font-size: 1.2em;
@@ -51,6 +55,14 @@
   cursor: pointer;
   margin-right: 4px;
   margin-left: 4px;
+  color: #ddd;
+  background: #000;
+}
+
+.orders-table-footer-button:hover,
+.orders-table-footer-button-border:active {
+  background-color: #171717;
+  border: 2px solid #000;
 }
 
 .orders-table-footer-active-button {
@@ -58,7 +70,18 @@
   background: limegreen;
 }
 
-.orders-table-footer-inactive-button {
-  color: #ddd;
-  background: #000;
+.orders-table-footer-active-button:hover {
+  background-color: limegreen;
+}
+
+.orders-table-footer-button-border {
+  width: 80px;
+}
+
+.orders-table-footer-button-border-rigth:active {
+  transform: translateX(4px);
+}
+
+.orders-table-footer-button-border-left:active {
+  transform: translateX(-4px);
 }
