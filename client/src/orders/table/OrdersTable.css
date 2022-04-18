@@ -1,0 +1,68 @@
+#orders-table {
+  margin-top: 3%;
+  width: 100%;
+  border: 2px solid limegreen;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#orders-table tr {
+  background-color: #000;
+}
+
+#orders-table th {
+  border-bottom: 2px solid limegreen;
+  font-size: 1.2em;
+}
+
+#orders-table :is(td,th) {
+  border-right: 2px solid limegreen;
+  border-left: 2px solid limegreen;
+  height: 40px;
+}
+
+#orders-table .table-orders-row-even {
+    background-color: #113300;
+}
+
+.collum-selected {
+  color: limegreen;
+}
+
+#orders-table thead tr th span {
+  cursor: pointer;
+}
+
+.orders-table-footer {
+  background-color: #f1f1f1;
+  padding: 8px 0px;
+  width: 100%;
+  font-weight: 500;
+  text-align: left;
+  font-size: 16px;
+  color: #2c3e50;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orders-table-footer-button {
+  border: none;
+  padding: 7px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 4px;
+  margin-left: 4px;
+}
+
+.orders-table-footer-active-button {
+  color: white;
+  background: #185adb;
+}
+
+.orders-table-footer-inactive-button {
+  color: #2c3e50;
+  background: #f9f9f9;
+}

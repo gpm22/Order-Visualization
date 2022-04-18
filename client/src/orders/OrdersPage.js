@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import Footer from "../commons/Footer";
 import Header from "../commons/Header";
 import Orders from "./Orders";
-import OrdersTable from "./OrdersTable";
+import OrdersTable from "./table/OrdersTable";
 import getObjects from "../utils/http-requester";
 
 function OrdersPage(props) {
