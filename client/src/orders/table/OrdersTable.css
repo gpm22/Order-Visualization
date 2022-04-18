@@ -40,7 +40,6 @@
   padding: 8px 0px;
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: flex-end;
 }
 
@@ -60,6 +59,13 @@
   background: #000;
 }
 
+.order-table-footer-buttoms-borders{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 .orders-table-footer-button:hover,
 .orders-table-footer-button-border:active {
   background-color: #171717;
@@ -76,7 +82,8 @@
 }
 
 .orders-table-footer-button-border {
-  width: 80px;
+  width: 90px;
+  text-align: center;
 }
 
 .orders-table-footer-button-border-rigth:active {
