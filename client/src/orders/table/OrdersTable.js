@@ -5,7 +5,6 @@ import "./OrdersTable.css";
 const rowsPerPage = 6;
 const triangleUp = String.fromCharCode(9650);
 const triangleDown = String.fromCharCode(9660);
-const collumns = ["orderId", "product", "price", "seller", "country"];
 
 const falseState = {
   "span-orderId": false,
@@ -67,11 +66,9 @@ const OrdersTable = (props) => {
         key={order.orderId}
         className={index % 2 === 0 ? "table-orders-row-even" : null}
       >
-        <td>{order.orderId}</td>
-        <td>{order.product}</td>
-        <td>{"$" + order.price.toFixed(2)}</td>
-        <td>{order.seller}</td>
-        <td>{order.country}</td>
+        {Object.entries(order).map(([key, value]) => (
+          <td>{key === "price" ? "$" + value.toFixed(2) : value}</td>
+        ))}
       </tr>
     );
   };
@@ -87,7 +84,7 @@ const OrdersTable = (props) => {
       >
         {orderFlags["span-" + collum] ? triangleDown : triangleUp}
       </span>{" "}
-      {collum === "orderIf"
+      {collum === "orderId"
         ? "Order Id"
         : collum.charAt(0).toUpperCase() + collum.slice(1)}
     </th>
@@ -157,6 +154,7 @@ const OrdersTable = (props) => {
     setState({ ...newState });
   };
 
+  let collumns = Object.keys(props["orders"][0]);
   let initialSlice = props["orders"].slice(0, rowsPerPage).map(row);
   let initialRange = calculateRange(props["orders"], rowsPerPage);
 
