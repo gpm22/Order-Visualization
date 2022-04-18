@@ -2,13 +2,16 @@ import React from "react";
 
 import "./OrdersTable.css";
 
+const leftTriangle = "\u25C0";
+const rightTriangle = "\u25B6";
+
 const TableFooter = ({ range, changePage, page }) => {
   const changePageLeft = () => {
     return page > 1 ? page - 1 : 1;
   };
 
   const changePageRight = () => {
-    return page < range.length ? page + 1 : page;
+    return page < range.length ? page + 1 : range.length;
   };
 
   return (
@@ -18,13 +21,13 @@ const TableFooter = ({ range, changePage, page }) => {
           onClick={() => changePage(changePageLeft())}
           className={`orders-table-footer-button orders-table-footer-button-border orders-table-footer-button-border-left`}
         >
-          {"\u25C0"}
+          {leftTriangle}
         </button>
         <buton
         onClick={() => changePage(1)}
           className={`orders-table-footer-button orders-table-footer-button-border orders-table-footer-button-border-left`}
         >
-          Older
+          First
         </buton>
       </div>
       {range.map((element, index) => (
@@ -43,14 +46,14 @@ const TableFooter = ({ range, changePage, page }) => {
           onClick={() => changePage(changePageRight())}
           className={`orders-table-footer-button orders-table-footer-button-border orders-table-footer-button-border-rigth`}
         >
-          {"\u25B6"}
+          {rightTriangle}
         </button>
 
         <buton
         onClick={() => changePage(range.length)}
           className={`orders-table-footer-button orders-table-footer-button-border orders-table-footer-button-border-rigth`}
         >
-          Newer
+          Last
         </buton>
       </div>
     </div>
