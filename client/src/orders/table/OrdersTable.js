@@ -4,6 +4,7 @@ import "./OrdersTable.css";
 
 const triangleUp = String.fromCharCode(9650);
 const triangleDown = String.fromCharCode(9660);
+const collumns = ["orderId", "product", "price", "seller", "country"];
 
 const compareStrings = (firstString, secondString, isAscending) => {
   if (firstString > secondString) {
@@ -37,11 +38,6 @@ const sliceData = (data, page, rowsPerPage) => {
 
 const OrdersTable = (props) => {
   const rowsPerPage = 6;
-
-  // const [page, setPage] = useState(1);
-  // const [tableRange, setTableRange] = useState([]);
-  // const [slice, setSlice] = useState([]);
-  // const [data, setData] = useState([]);
 
   const [state, setState] = useState({
     page: 1,
@@ -167,71 +163,29 @@ const OrdersTable = (props) => {
   let initialSlice = props["orders"].slice(0, rowsPerPage).map(row);
   let initialRange = calculateRange(props["orders"], rowsPerPage);
 
+  const headRow = (collum, index) => (
+    <th key={index}>
+      <span
+        id={"span-" + collum}
+        className={
+          isCollumSelected["span-" + collum] ? "collum-selected" : null
+        }
+        onClick={handleSortRows}
+      >
+        {orderFlags["span-" + collum] ? triangleDown : triangleUp}
+      </span>{" "}
+      {collum === "orderIf"
+        ? "Order Id"
+        : collum.charAt(0).toUpperCase() + collum.slice(1)}
+    </th>
+  );
+
   return (
     <>
       <table id="orders-table">
         <thead>
           <tr>
-            <th>
-              <span
-                id="span-orderId"
-                className={
-                  isCollumSelected["span-orderId"] ? "collum-selected" : null
-                }
-                onClick={handleSortRows}
-              >
-                {orderFlags["span-orderId"] ? triangleDown : triangleUp}
-              </span>{" "}
-              Order Id
-            </th>
-            <th>
-              <span
-                id="span-product"
-                className={
-                  isCollumSelected["span-product"] ? "collum-selected" : null
-                }
-                onClick={handleSortRows}
-              >
-                {orderFlags["span-product"] ? triangleDown : triangleUp}
-              </span>{" "}
-              Product
-            </th>
-            <th>
-              <span
-                id="span-price"
-                className={
-                  isCollumSelected["span-price"] ? "collum-selected" : null
-                }
-                onClick={handleSortRows}
-              >
-                {orderFlags["span-price"] ? triangleDown : triangleUp}
-              </span>{" "}
-              Price
-            </th>
-            <th>
-              <span
-                id="span-seller"
-                className={
-                  isCollumSelected["span-seller"] ? "collum-selected" : null
-                }
-                onClick={handleSortRows}
-              >
-                {orderFlags["span-seller"] ? triangleDown : triangleUp}
-              </span>{" "}
-              Seller
-            </th>
-            <th>
-              <span
-                id="span-country"
-                className={
-                  isCollumSelected["span-country"] ? "collum-selected" : null
-                }
-                onClick={handleSortRows}
-              >
-                {orderFlags["span-country"] ? triangleDown : triangleUp}
-              </span>{" "}
-              Country
-            </th>
+            {collumns.map(headRow)}
           </tr>
         </thead>
         <tbody>
