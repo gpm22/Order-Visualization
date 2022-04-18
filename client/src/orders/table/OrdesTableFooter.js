@@ -14,21 +14,24 @@ const TableFooter = ({ range, changePage, page }) => {
     return page < range.length ? page + 1 : range.length;
   };
 
+  const borderButton = (value, pageValue, side) => (
+    <button
+      onClick={() => changePage(pageValue)}
+      className={
+        `orders-table-footer-button` +
+        ` orders-table-footer-button-border` +
+        ` orders-table-footer-button-border-${side}`
+      }
+    >
+      {value}
+    </button>
+  );
+
   return (
     <div className="orders-table-footer">
       <div className="order-table-footer-buttoms-borders">
-        <button
-          onClick={() => changePage(changePageLeft())}
-          className={`orders-table-footer-button orders-table-footer-button-border orders-table-footer-button-border-left`}
-        >
-          {leftTriangle}
-        </button>
-        <buton
-        onClick={() => changePage(1)}
-          className={`orders-table-footer-button orders-table-footer-button-border orders-table-footer-button-border-left`}
-        >
-          First
-        </buton>
+        {borderButton(leftTriangle, changePageLeft(), "left")}
+        {borderButton("First", 1, "left")}
       </div>
       {range.map((element, index) => (
         <button
@@ -42,19 +45,8 @@ const TableFooter = ({ range, changePage, page }) => {
         </button>
       ))}
       <div className="order-table-footer-buttoms-borders">
-        <button
-          onClick={() => changePage(changePageRight())}
-          className={`orders-table-footer-button orders-table-footer-button-border orders-table-footer-button-border-rigth`}
-        >
-          {rightTriangle}
-        </button>
-
-        <buton
-        onClick={() => changePage(range.length)}
-          className={`orders-table-footer-button orders-table-footer-button-border orders-table-footer-button-border-rigth`}
-        >
-          Last
-        </buton>
+        {borderButton(rightTriangle, changePageRight(), "right")}
+        {borderButton("Last", range.length, "right")}
       </div>
     </div>
   );
