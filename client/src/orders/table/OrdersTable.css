@@ -1,5 +1,5 @@
 #orders-table {
-  margin-top: 3%;
+  margin-top: 2%;
   width: 100%;
   border: 2px solid limegreen;
   border-collapse: collapse;
@@ -18,7 +18,8 @@
 #orders-table :is(td,th) {
   border-right: 2px solid limegreen;
   border-left: 2px solid limegreen;
-  height: 40px;
+  height: 32px;
+  width: 100px;
 }
 
 #orders-table .table-orders-row-even {
