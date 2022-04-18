@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import TableFooter from "./OrdesTableFooter";
+import OrderTableFooter from "./OrdesTableFooter";
+import OrderTableFilter from "./OrderTableFilter";
 import "./OrdersTable.css";
 
 const rowsPerPage = 6;
@@ -168,7 +169,7 @@ const OrdersTable = (props) => {
           {state.slice.length === 0 ? initialSlice : state.slice.map(row)}
         </tbody>
       </table>
-      <TableFooter
+      <OrderTableFooter
         range={state.tableRange.length === 0 ? initialRange : state.tableRange}
         changePage={changePage}
         page={state.page}

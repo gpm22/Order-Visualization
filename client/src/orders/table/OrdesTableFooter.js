@@ -5,7 +5,7 @@ import "./OrdersTable.css";
 const leftTriangle = "\u25C0";
 const rightTriangle = "\u25B6";
 
-const TableFooter = ({ range, changePage, page }) => {
+const OrderTableFooter = ({ range, changePage, page }) => {
   const changePageLeft = () => {
     return page > 1 ? page - 1 : 1;
   };
@@ -52,4 +52,4 @@ const TableFooter = ({ range, changePage, page }) => {
   );
 };
 
-export default TableFooter;
+export default OrderTableFooter;
