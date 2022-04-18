@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import TableFooter from "./OrdesTableFooter";
 import "./OrdersTable.css";
 
+const rowsPerPage = 6;
 const triangleUp = String.fromCharCode(9650);
 const triangleDown = String.fromCharCode(9660);
 const collumns = ["orderId", "product", "price", "seller", "country"];
+
+const falseState = {
+  "span-orderId": false,
+  "span-product": false,
+  "span-price": false,
+  "span-seller": false,
+  "span-country": false,
+};
 
 const compareStrings = (firstString, secondString, isAscending) => {
   if (firstString > secondString) {
@@ -37,8 +46,6 @@ const sliceData = (data, page, rowsPerPage) => {
 };
 
 const OrdersTable = (props) => {
-  const rowsPerPage = 6;
-
   const [state, setState] = useState({
     page: 1,
     tableRange: [],
@@ -46,21 +53,9 @@ const OrdersTable = (props) => {
     data: [],
   });
 
-  const [orderFlags, setOrderFlags] = useState({
-    "span-order-id": false,
-    "span-product": false,
-    "span-price": false,
-    "span-seller": false,
-    "span-country": false,
-  });
+  const [orderFlags, setOrderFlags] = useState(falseState);
 
-  const [isCollumSelected, setIsCollumSelected] = useState({
-    "span-order-id": false,
-    "span-product": false,
-    "span-price": false,
-    "span-seller": false,
-    "span-country": false,
-  });
+  const [isCollumSelected, setIsCollumSelected] = useState(falseState);
 
   if (!props.orders || !props.sellers) {
     return <section id="sellers-total">Carregando ...</section>;
@@ -81,14 +76,25 @@ const OrdersTable = (props) => {
     );
   };
 
+  const headRow = (collum, index) => (
+    <th key={index}>
+      <span
+        id={"span-" + collum}
+        className={
+          isCollumSelected["span-" + collum] ? "collum-selected" : null
+        }
+        onClick={handleSortRows}
+      >
+        {orderFlags["span-" + collum] ? triangleDown : triangleUp}
+      </span>{" "}
+      {collum === "orderIf"
+        ? "Order Id"
+        : collum.charAt(0).toUpperCase() + collum.slice(1)}
+    </th>
+  );
+
   const changeOrderFlags = (collumId) => {
-    let newOrderFlags = {
-      "span-orderId": false,
-      "span-product": false,
-      "span-price": false,
-      "span-seller": false,
-      "span-country": false,
-    };
+    let newOrderFlags = { ...falseState };
     newOrderFlags[collumId] = !orderFlags[collumId];
     setOrderFlags({
       ...newOrderFlags,
@@ -96,13 +102,7 @@ const OrdersTable = (props) => {
   };
 
   const changeIsCOllumSelected = (collumId) => {
-    let newIsCollumSelected = {
-      "span-orderId": false,
-      "span-product": false,
-      "span-price": false,
-      "span-seller": false,
-      "span-country": false,
-    };
+    let newIsCollumSelected = { ...falseState };
     newIsCollumSelected[collumId] = true;
     setIsCollumSelected({
       ...newIsCollumSelected,
@@ -144,12 +144,9 @@ const OrdersTable = (props) => {
     changeOrderFlags(event.target.id);
     changeIsCOllumSelected(event.target.id);
     sortRows(event.target.id);
-    console.log("ordenando para a coluna: " + event.target.id);
   };
 
   const changePage = (element) => {
-    console.log(element);
-    console.log("change to page " + element);
     const newState = { ...state };
     newState.page = element;
     newState.slice =
@@ -163,30 +160,11 @@ const OrdersTable = (props) => {
   let initialSlice = props["orders"].slice(0, rowsPerPage).map(row);
   let initialRange = calculateRange(props["orders"], rowsPerPage);
 
-  const headRow = (collum, index) => (
-    <th key={index}>
-      <span
-        id={"span-" + collum}
-        className={
-          isCollumSelected["span-" + collum] ? "collum-selected" : null
-        }
-        onClick={handleSortRows}
-      >
-        {orderFlags["span-" + collum] ? triangleDown : triangleUp}
-      </span>{" "}
-      {collum === "orderIf"
-        ? "Order Id"
-        : collum.charAt(0).toUpperCase() + collum.slice(1)}
-    </th>
-  );
-
   return (
     <>
       <table id="orders-table">
         <thead>
-          <tr>
-            {collumns.map(headRow)}
-          </tr>
+          <tr>{collumns.map(headRow)}</tr>
         </thead>
         <tbody>
           {state.slice.length === 0 ? initialSlice : state.slice.map(row)}
