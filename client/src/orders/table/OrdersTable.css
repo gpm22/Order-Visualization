@@ -93,3 +93,9 @@
 .orders-table-footer-button-border-left:active {
   transform: translateX(-4px);
 }
+
+#table-filters {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

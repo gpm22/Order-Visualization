@@ -161,6 +161,10 @@ const OrdersTable = (props) => {
 
   return (
     <>
+    <div id="table-filters">
+      <OrderTableFilter key="seller" data={props["orders"]} collum={"seller"}/>
+      <OrderTableFilter key="country" data={props["orders"]} collum={"country"}/>
+    </div>
       <table id="orders-table">
         <thead>
           <tr>{collumns.map(headRow)}</tr>
