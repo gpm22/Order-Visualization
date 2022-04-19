@@ -2,9 +2,20 @@ import React from "react";
 
 import "./OrdersTable.css";
 
+const pluralize = (word) => {
+
+  if (word.substring(word.length - 3) === "try") {
+    return word.substring(0, word.length - 1) + "ies";
+  }
+
+  return word + "s";
+};
+
+const capitalize = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
+
 const OrderTableFilter = (props) => {
-  console.log(props.data);
-  console.log(props.collum);
   let options = props.data
     .map((element) => element[props.collum])
     .filter((value, index, self) => self.indexOf(value) === index)
@@ -15,8 +26,8 @@ const OrderTableFilter = (props) => {
     ));
 
   return (
-    <select>
-      <option>All options</option>
+    <select onChange={(value) => props.handleFilter(props.collum, value)}>
+      <option value="all">{`All ${capitalize(pluralize(props.collum))}`}</option>
       {options}
     </select>
   );

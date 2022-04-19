@@ -7,14 +7,6 @@ const rowsPerPage = 6;
 const triangleUp = String.fromCharCode(9650);
 const triangleDown = String.fromCharCode(9660);
 
-const falseState = {
-  "span-orderId": false,
-  "span-product": false,
-  "span-price": false,
-  "span-seller": false,
-  "span-country": false,
-};
-
 const compareStrings = (firstString, secondString, isAscending) => {
   if (firstString > secondString) {
     return isAscending ? -1 : 1;
@@ -46,16 +38,40 @@ const sliceData = (data, page, rowsPerPage) => {
 };
 
 const OrdersTable = (props) => {
+  const falseState = () => {
+    let falseState = {};
+
+    let orders = props["orders"] || [{}];
+
+    Object.keys(orders[0]).forEach((key) => (falseState[key] = false));
+
+    return falseState;
+  };
+
   const [state, setState] = useState({
     page: 1,
     tableRange: [],
     slice: [],
-    data: [],
+    data: false,
   });
 
-  const [orderFlags, setOrderFlags] = useState(falseState);
+  const [orderFlags, setOrderFlags] = useState(falseState());
 
-  const [isCollumSelected, setIsCollumSelected] = useState(falseState);
+  const [isCollumSelected, setIsCollumSelected] = useState(falseState());
+
+  const initialFiltersState = () => {
+    let initialFiltersState = {};
+
+    let orders = props["orders"] || [{}];
+
+    Object.keys(orders[0])
+      .filter((collumn) => collumn !== "orderId" && collumn !== "price")
+      .forEach((key) => (initialFiltersState[key] = "all"));
+
+    return initialFiltersState;
+  };
+
+  const [filters, setFilters] = useState(initialFiltersState());
 
   if (!props.orders || !props.sellers) {
     return <section id="sellers-total">Carregando ...</section>;
@@ -92,7 +108,7 @@ const OrdersTable = (props) => {
   );
 
   const changeOrderFlags = (collumId) => {
-    let newOrderFlags = { ...falseState };
+    let newOrderFlags = { ...falseState() };
     newOrderFlags[collumId] = !orderFlags[collumId];
     setOrderFlags({
       ...newOrderFlags,
@@ -100,11 +116,21 @@ const OrdersTable = (props) => {
   };
 
   const changeIsCOllumSelected = (collumId) => {
-    let newIsCollumSelected = { ...falseState };
+    let newIsCollumSelected = { ...falseState() };
     newIsCollumSelected[collumId] = true;
     setIsCollumSelected({
       ...newIsCollumSelected,
     });
+  };
+
+  const updateData = (data) => {
+    const newState = { ...state };
+    newState.data = data;
+    newState.tableRange = calculateRange(newState.data, rowsPerPage);
+    newState.page = 1;
+    newState.slice = sliceData(newState.data, newState.page, rowsPerPage);
+
+    setState({ ...newState });
   };
 
   const sortRows = (collumId) => {
@@ -127,30 +153,48 @@ const OrdersTable = (props) => {
       }
     };
 
-    const newState = { ...state };
-
-    newState.data = props["orders"].sort(compareRows);
-    newState.tableRange = calculateRange(newState.data, rowsPerPage);
-    newState.page = 1;
-    newState.slice = sliceData(newState.data, newState.page, rowsPerPage);
-
-    setState({ ...newState });
+    return state.data
+      ? state.data.sort(compareRows)
+      : props["orders"].sort(compareRows);
   };
 
   const handleSortRows = (event) => {
     event.preventDefault();
     changeOrderFlags(event.target.id);
     changeIsCOllumSelected(event.target.id);
-    sortRows(event.target.id);
+    updateData(sortRows(event.target.id));
+  };
+
+  const filterRows = (data, collum, value) => {
+    return data.filter(
+      value === "all" ? () => true : (element) => element[collum] === value
+    );
+  };
+
+  const handleFilter = (collum, event) => {
+    let newFilters = { ...filters };
+    newFilters[collum] = event.target.value;
+    setFilters({ ...newFilters });
+    changeOrderFlags(null);
+    changeIsCOllumSelected(null);
+
+    let data = props["orders"];
+    Object.entries(newFilters).forEach(([collum, value]) => {
+      data = filterRows(data, collum, value);
+    });
+    updateData(data);
   };
 
   const changePage = (element) => {
     const newState = { ...state };
+
+    if (!state.data) {
+      newState.data = props["orders"];
+      newState.tableRange = calculateRange(newState.data, rowsPerPage);
+    }
+
     newState.page = element;
-    newState.slice =
-      state.data.length === 0
-        ? sliceData(props["orders"], newState.page, rowsPerPage)
-        : sliceData(newState.data, newState.page, rowsPerPage);
+    newState.slice = sliceData(newState.data, newState.page, rowsPerPage);
 
     setState({ ...newState });
   };
@@ -159,22 +203,40 @@ const OrdersTable = (props) => {
   let initialSlice = props["orders"].slice(0, rowsPerPage).map(row);
   let initialRange = calculateRange(props["orders"], rowsPerPage);
 
+  const orderTableFilters = Object.keys(props["orders"][0])
+    .filter((collumn) => collumn !== "orderId" && collumn !== "price")
+    .map((collumn) => (
+      <OrderTableFilter
+        key={collumn}
+        data={props["orders"]}
+        collum={collumn}
+        handleFilter={handleFilter}
+      />
+    ));
+
+  const emptyRow = collumns.map(() => <td>-</td>);
+
   return (
     <>
-    <div id="table-filters">
-      <OrderTableFilter key="seller" data={props["orders"]} collum={"seller"}/>
-      <OrderTableFilter key="country" data={props["orders"]} collum={"country"}/>
-    </div>
+      <div id="table-filters">{orderTableFilters}</div>
       <table id="orders-table">
         <thead>
           <tr>{collumns.map(headRow)}</tr>
         </thead>
         <tbody>
-          {state.slice.length === 0 ? initialSlice : state.slice.map(row)}
+          {state.data ? (
+            !(state.slice > 0) ? (
+              <tr className="table-orders-row-even">{emptyRow}</tr>
+            ) : (
+              state.slice.map(row)
+            )
+          ) : (
+            initialSlice
+          )}
         </tbody>
       </table>
       <OrderTableFooter
-        range={state.tableRange.length === 0 ? initialRange : state.tableRange}
+        range={state.data ? state.tableRange : initialRange}
         changePage={changePage}
         page={state.page}
       />

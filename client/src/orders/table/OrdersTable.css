@@ -1,7 +1,11 @@
+:root {
+  --row-height: 30px;
+}
+
 #orders-table {
   margin-top: 20px;
   width: 100%;
-  height: 300px;
+  height: calc(var(--row-height)*8);
   border: 2px solid limegreen;
   border-collapse: collapse;
   text-align: center;
@@ -17,9 +21,10 @@
 }
 
 #orders-table :is(td, th) {
+  margin: 0%;
   border-right: 2px solid limegreen;
   border-left: 2px solid limegreen;
-  height: 32px;
+  height: var(--row-height);
   width: 100px;
 }
 
@@ -59,7 +64,7 @@
   background: #000;
 }
 
-.order-table-footer-buttoms-borders{
+.order-table-footer-buttoms-borders {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -95,7 +100,31 @@
 }
 
 #table-filters {
+  margin-top: 15px;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+#table-filters select {
+  box-sizing: border-box;
+  width: 19.5%;
+  height: var(--row-height);
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  background-color: #000;
+  color: #ddd;
+  border: 2px solid limegreen;
+  cursor: pointer;
+  margin: 0 0.25%;
+}
+
+#table-filters select:hover {
+  background-color: #222;
+  border-color: #000;
+}
+
+#table-filters select option {
+  background-color: #000;
 }
