@@ -8,7 +8,7 @@ const port = 3200;
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "*",
   })
 );
 
